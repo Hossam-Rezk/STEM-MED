@@ -1,0 +1,236 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #f9f9f9, #f0f4f7); /* Light background gradient */
+  color: #333; /* Dark text for contrast */
+}
+
+/* Navigation Bar */
+nav {
+  background: linear-gradient(90deg, #1b3a57, #274c77); /* Gradient with darker blue tones */
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+}
+
+nav h1 {
+  color: #ffffff; /* White text for nav title */
+  font-size: 24px;
+  text-transform: uppercase;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+nav h1::before {
+  content: '\f015'; /* Font Awesome icon for Home */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.nav-links li a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.nav-links li a:hover {
+  color: #dfe9f3; /* Light blue hover effect */
+  transform: scale(1.1);
+}
+
+.nav-links li a::before {
+  content: '\f111'; /* Font Awesome circle icon */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 5px;
+}
+
+/* Main Container */
+.container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 30px;
+}
+
+/* Card Styles */
+.card {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-width: 350px;
+  flex: 1;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.card h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card h2::before {
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 10px;
+}
+
+#bpm-card h2::before {
+  content: '\f21e'; /* Font Awesome heart icon */
+}
+
+#spo2-card h2::before {
+  content: '\f5c9'; /* Font Awesome lungs icon */
+}
+
+#temp-card h2::before {
+  content: '\f2c9'; /* Font Awesome thermometer icon */
+}
+
+#humidity-card h2::before {
+  content: '\f043'; /* Font Awesome water icon */
+}
+
+/* Weather Temp Styling */
+#temp-card {
+  background-color: #ffffff;
+}
+
+#temp-card h2 {
+  color: #ff9900; /* Orange for combined temperature */
+}
+
+/* Specific Weather Temp Styling */
+.stat-card.weather {
+  background-color: #f9f9f9;
+}
+
+.stat-card.weather h3 {
+  color: #ff9900; /* Orange for weather temp */
+}
+
+.stat-card.weather i {
+  color: #ff9900; /* Matching orange icon for weather temp */
+}
+
+/* Stats Section */
+.stats-section {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+}
+
+.stat-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.stat-card i {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.stat-card h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.stat-card p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(90deg, #274c77, #1b3a57); /* Gradient with darker blue tones */
+  padding: 20px;
+  margin-top: 30px; /* Moves footer slightly down */
+  color: #ffffff;
+  text-align: center;
+  font-size: 14px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer::before {
+  content: '\f5b0'; /* Font Awesome heartbeat icon */
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+footer p {
+  margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .container {
+    flex-direction: column;
+  }
+
+  .stats-section {
+    flex-direction: column;
+  }
+}

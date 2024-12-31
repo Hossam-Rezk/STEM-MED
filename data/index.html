@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Monitor Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="nav-container">
+            <h1>Health Monitor</h1>
+            <ul class="nav-links">
+                <li><a href="#bpm-card">BPM</a></li>
+                <li><a href="#spo2-card">SpO2</a></li>
+                <li><a href="#temp-card">Body Temp</a></li>
+                <li><a href="#humidity-card">Humidity</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- BPM Card -->
+        <div class="card" id="bpm-card">
+            <h2>BPM</h2>
+            <canvas id="bpmChart" aria-label="BPM Chart" role="img"></canvas>
+        </div>
+        
+        <!-- SpO2 Card -->
+        <div class="card" id="spo2-card">
+            <h2>SpO2</h2>
+            <canvas id="spo2Chart" aria-label="SpO2 Chart" role="img"></canvas>
+        </div>
+        
+        <!-- Body Temp Card -->
+        <div class="card" id="temp-card">
+            <h2>Temperature</h2>
+            <canvas id="tempChart" aria-label="Body Temp Chart" role="img"></canvas>
+        </div>
+        
+        <!-- Humidity Card -->
+        <div class="card" id="humidity-card">
+            <h2>Humidity</h2>
+            <canvas id="humidityChart" aria-label="Humidity Chart" role="img"></canvas>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-section">
+        <!-- Average BPM -->
+        <div class="stat-card">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Avg BPM</h3>
+            <p id="avg-bpm">-- BPM</p>
+        </div>
+        
+        <!-- Average SpO2 -->
+        <div class="stat-card">
+            <i class="fas fa-lungs"></i>
+            <h3>Avg SpO2</h3>
+            <p id="avg-spo2">-- %</p>
+        </div>
+        
+        <!-- Average Body Temp -->
+        <div class="stat-card">
+            <i class="fas fa-thermometer-half"></i>
+            <h3>Avg Temp</h3>
+            <p id="avg-temp">-- °C</p>
+        </div>
+        <!-- Average Weather Temp -->
+<div class="stat-card">
+  <i class="fas fa-cloud-sun"></i>
+  <h3>Avg Weather Temp</h3>
+  <p id="avg-weather-temp">-- °C</p>
+</div>
+
+        
+        <!-- Average Humidity -->
+        <div class="stat-card">
+            <i class="fas fa-tint"></i>
+            <h3>Avg Humidity</h3>
+            <p id="avg-humidity">-- %</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Health Monitor Dashboard | STEM Project</p>
+        <p>Developed by: [Student Name 1], [Student Name 2]</p>
+    </footer>
+
+    <!-- Script for Data Handling -->
+    <script src="script.js"></script>
+</body>
+</html>
