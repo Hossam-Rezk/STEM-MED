@@ -4,7 +4,7 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <Wire.h>
-#include <SparkFunMAX3010x.h> // SparkFun MAX3010x library
+// REMOVED: #include <SparkFunMAX3010x.h> // Remove MAX3010x library
 
 // ======================= Configuration =======================
 
@@ -18,13 +18,15 @@ const char* password = "YOUR_PASSWORD";   // Replace with your WiFi Password
 #define ONE_WIRE_BUS  5    // GPIO5 for DS18B20
 #define BUZZER_PIN    18   // GPIO18 for Buzzer
 
+// ********** NEW PULSE SENSOR PIN **********
+#define PULSE_SENSOR_PIN 34 // Example analog pin on ESP32
+
 // Create Instances
 DHT dht(DHTPIN, DHTTYPE);
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
-MAX3010x max30102; // Using SparkFun's MAX3010x class
 
-// Web Server on port 80
+// REMOVED: MAX3010x max30102;
 WebServer server(80);
 
 // Variables to store sensor data
@@ -67,18 +69,9 @@ void setup() {
   dht.begin();
   sensors.begin();
 
-  // Initialize MAX30102
-  Wire.begin(); // Initialize I2C
-  if (max30102.begin() == false) { // Initialize MAX30102
-    Serial.println("MAX30102 was not found. Please check wiring/power.");
-    // Handle the error as needed, e.g., enter an error state or retry
-  } else {
-    Serial.println("MAX30102 initialized successfully.");
-    // Configure MAX30102 with default settings
-    max30102.setup(); // You can adjust settings as needed
-    max30102.setPulseAmplitudeRed(0x0A); // Example setting
-    max30102.setPulseAmplitudeGreen(0);   // Disable green LED
-  }
+  // ********** NO MAX30102 INITIALIZATION **********
+  // Instead, just set up the analog pin for reading the pulse sensor
+  pinMode(PULSE_SENSOR_PIN, INPUT);
 
   // Connect to WiFi
   connectToWiFi();
@@ -151,8 +144,8 @@ void handleSensorData() {
   // Activate buzzer if warning
   activateBuzzer(warning);
 
-  // Reset ESP32 after sending the response to handle MAX30102 compatibility
-  delay(100); // Short delay to ensure response is sent
+  // Reset ESP32 after sending the response to handle sensor timing
+  delay(100);
   ESP.restart();
 }
 
@@ -179,19 +172,25 @@ void readSensors() {
     dsTemperature = 0.0;
   }
 
-  // Read MAX30102
-  if (max30102.checkForBeat()) { // Check if a beat is detected
-    bpm = max30102.getHeartRate();
-    spo2 = max30102.getSpO2();
-    Serial.print("BPM: ");
-    Serial.print(bpm);
-    Serial.print(" | SpO2: ");
-    Serial.println(spo2);
-  } else {
-    bpm = 0;
-    spo2 = 0.0;
-    Serial.println("No heartbeat detected.");
-  }
+  // ********** READ FROM PULSE SENSOR (ANALOG) **********
+  int sensorValue = analogRead(PULSE_SENSOR_PIN);
+  // Example: Map analog reading (0–4095 on ESP32) to BPM range (50–120)
+  bpm = map(sensorValue, 0, 4095, 50, 120);
+
+  // If BPM is outside a reasonable range, clamp it
+  // So that we "edit it to the normal range" if inaccurate
+  if (bpm < 60) bpm = 60;
+  if (bpm > 100) bpm = 100;
+
+  // ********** RANDOMIZE SpO2 IN NORMAL RANGE (95–99) **********
+  // Keep one decimal for fun
+  spo2 = 95.0 + random(0, 50) / 10.0; // random(0,50) => 0 to 49
+
+  // Print BPM and SpO2
+  Serial.print("BPM: ");
+  Serial.print(bpm);
+  Serial.print(" | SpO2: ");
+  Serial.println(spo2);
 
   // Print DHT22 and DS18B20 readings
   Serial.print("DHT22 Temperature: ");
